@@ -19,6 +19,10 @@ public class Main {
             // Reading the entire content of the file into a single string
             String content = reader.lines().reduce("", (acc, line) -> acc + line);
             // Use the content as needed
+            String regex = "don't\\(\\).*?(do\\(\\)|$)";
+            String result = content.replaceAll(regex, "");
+            System.out.println(result);
+            content = result;
             for(int index: findAllOccurrences(content, "mul(")){
                 String firstNumber = "";
                 boolean commaFound = false;
@@ -30,6 +34,7 @@ public class Main {
                             System.out.println(content.substring(index, i + 1));
                             total += ((long) Integer.parseInt(firstNumber) * Integer.parseInt(secondNumber));
                         }
+                        break;
                     }else if(c == ','){
                         if(commaFound){
                             break;
@@ -43,7 +48,7 @@ public class Main {
                             firstNumber += c;
                         }
                     }else{
-                        System.out.println(content.substring(index, i + 1));
+//                        System.out.println(content.substring(index, i));
                         break;
                     }
                 }
